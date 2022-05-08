@@ -1,7 +1,7 @@
 // You need the following required:
-// path
-// express
-// express-handlebars
+const path = require('path');
+const express = require('express');
+const exphbs = require('express-handlebars');
 // helpers (if you are putting timestamps on posts)
 
 const app = express();
