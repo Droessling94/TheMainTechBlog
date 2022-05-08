@@ -10,8 +10,15 @@ const PORT = process.env.PORT || 3001;
 const sequelize = require("./config/config");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 
+  //--HOLDS INFO FOR CURRENT SESSION--//
 const sess = {
-    // For password sessions
+  secret: 'Super secret secret',
+  cookie: {},
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
 };
 
 app.use(session(sess));
@@ -25,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+  //--SAME THING AS CONST ROUTE ABOVE--//
 app.use(require('./controllers'));
 
 app.listen(PORT, () => {
