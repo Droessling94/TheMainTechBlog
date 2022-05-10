@@ -36,6 +36,7 @@ User.init(
             return newUserData;
           },
          // beforeUpdate: async () => {}
+         
     },
     sequelize,
     timestamps: false,
