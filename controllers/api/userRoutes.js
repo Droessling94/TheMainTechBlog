@@ -1,15 +1,36 @@
 const router = require("express").Router();
+const session = require("express-session");
 const { User } = require("../../models");
+
 
 router.post("/", async (req, res) => {
     // Creating a new instance of user
+    try {
+        const userData = await User.create(req.body);
+        res.status(200).json(userData);
+      } catch (err) {
+        res.status(400).json(err);
+      }
 });
 
 router.post("/login", async (req, res) => {
     // User login
+    try{
+        if(req.body.username == username && req.body.password == userpassword){
+            session = req.session;
+            session.userid = req.body.username;
+            console.log(req.session);
+            res.send('logged in')
+        }else{
+            res.send('Invalid credentials.')
+        }
+    }catch(err){res.status(500).json(err);}
+
 });
 
-router.post("/logout", async (req, res) => {
+router.get("/logout", async (req, res) => {
+    req.session.destroy();
+    res.redirect('login')
     // User logout
 });
 
